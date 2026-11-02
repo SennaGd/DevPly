@@ -1,6 +1,7 @@
 # opdrachtgever -> Imholz
 
 _development en release platform voor ontwikkelaars_
+
 __Eisen__
 - frontend framework -> HTML Page
 - backend api --> --> --^^^^^^^^^
@@ -25,6 +26,6 @@ __Vragen__
 	-> framework? database? LLM?
 
 __Bijzaken voor Product owner__
--> Meetings inplannen
--> Contact via teams, meetings of ander programma
+- Meetings inplannen
+- Contact via teams, meetings of ander programma
 
