@@ -1,0 +1,280 @@
+{
+  "main": {
+    "id": "c1a0313d82ac865a",
+    "type": "split",
+    "children": [
+      {
+        "id": "b160b0ea9437e06c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7fa08e0245b91444",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "notes.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "notes"
+            }
+          },
+          {
+            "id": "e42b2813b1465bb6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "(C.1) Technisch Ontwerp - DevPly.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "(C.1) Technisch Ontwerp - DevPly"
+            }
+          },
+          {
+            "id": "48995882592ab7f0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "(D.1) Testplan - DevPly.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "(D.1) Testplan - DevPly"
+            }
+          },
+          {
+            "id": "7451c96f311acd6f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "(E.1) Testcases - DevPly.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "(E.1) Testcases - DevPly"
+            }
+          },
+          {
+            "id": "bab753b7c6fe2cb8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "(A.1) Project Plan - DevPly.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "(A.1) Project Plan - DevPly"
+            }
+          },
+          {
+            "id": "3cfa5385104ac3a8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "notes.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "notes"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "eb0abf72ac28077a",
+    "type": "split",
+    "children": [
+      {
+        "id": "4d8221fc398c7e42",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bb49023a1a5436c3",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "e4de56a60a076ebd",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "1664d6719d0fb962",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "0b3e19658d982bbf",
+    "type": "split",
+    "children": [
+      {
+        "id": "a2d87d9fb69062d1",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "03157dc665d88b43",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "notes.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "b5f4974c12e08cba",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "notes.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "1419319f8e89ba32",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "e360051f6c47c725",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "8aec5f1b3f646ea5",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "notes.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "3cfa5385104ac3a8",
+  "lastOpenFiles": [
+    "(F.1) Acceptatie testcases - DevPly.md",
+    "notes.md",
+    "(A.1) Project Plan - DevPly.md",
+    "(E.1) Testcases - DevPly.md",
+    "(D.1) Testplan - DevPly.md",
+    "(C.1) Technisch Ontwerp - DevPly.md",
+    "(B.1) Functioneel Ontwerp - DevPly.md",
+    "Gespreksverslagen/Gespreksverslag Template.md",
+    "Testen",
+    "Testen/Testrapporten",
+    "Testen/Acceptatie testrapporten",
+    "Gespreksverslagen",
+    "Reflectieverslagen",
+    "Images",
+    "Schetsen"
+  ]
+}
