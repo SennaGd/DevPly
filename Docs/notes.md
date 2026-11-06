@@ -3,30 +3,11 @@
 _development en release platform voor ontwikkelaars_
 
 __Vragen__
-- Einddatum / Projectduur
-	-> Hoelang duurt het project?
-- Meerdere gebruikers in een project?
-- Testomgeving voor projecten of voor de dev-release platform?
-- Kleurenthema? 
-	-> donker, licht. rood, blauw, etc.
-- Wat wordt er bedoeld met -> 3. Functionele scope (proefproeve)
-	"externe commits, issues of pull requests"?
-	"Afhankelijkheden"?
-	
-__Bijzaken voor Product owner__
-- Meetings inplannen
-- Contact via teams, meetings of ander programma
-
-__MCP Use-cases__
-1. Automatische code reviews
-2. Geautomatiseerde feedback 
-3. Issue tracking
-4. Projectstatus onderzoeken -> hoe ver het project is voor productie
-5. Ontbrekende testdekking 
-6. Openstaande requirements vinden
-7. Een ontwikkeltaak voorbereiden
-8. Een releasesamenvatting voorbereiden
-
+- Gewenste taal? -> taal schakelaar? 
+- Wie kan een nieuw project aanmaken?
+- Wie beheerd de rollen (managers/ontwikkelaars)
+- Zitten er ook wegingen op ontwikkeltaken om de voortgang eventueel duidelijker te maken?
+- Wie bepaald wanneer een project af is? zijn dat de managers of ontwikkelaars?
 __Eisen__
 1. MCP
 2. RESTful / Passende API	-> Python (FastApi?)

@@ -55,4 +55,3 @@ Hierop Antwoordde Imholz met "ja, is goed."
 **Verbetervoorstellen**
 Thema schakelaar -> licht/donker thema
 
-**Aanpassingen documentatie**
