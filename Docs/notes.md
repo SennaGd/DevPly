@@ -8,6 +8,9 @@ __Vragen__
 - Wie beheerd de rollen (managers/ontwikkelaars)
 - Zitten er ook wegingen op ontwikkeltaken om de voortgang eventueel duidelijker te maken?
 - Wie bepaald wanneer een project af is? zijn dat de managers of ontwikkelaars?
+- Kan het platform ook gebruikt worden op de telefoon?
+- Als de aanmaker van een project gebruikers uitnodigd, wat is de rol van de gebruiker. Wordt dit aangegeven door de aanmaker voor het verzenden of kiest de gebruiker dat zelf?
+
 __Eisen__
 1. MCP
 2. RESTful / Passende API	-> Python (FastApi?)

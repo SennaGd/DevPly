@@ -69,30 +69,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "(A.1) Project Plan - DevPly.md",
+                "file": "(B.1) Functioneel Ontwerp - DevPly.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "(A.1) Project Plan - DevPly"
-            }
-          },
-          {
-            "id": "3cfa5385104ac3a8",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "(A.1) Project Plan - DevPly.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "(A.1) Project Plan - DevPly"
+              "title": "(B.1) Functioneel Ontwerp - DevPly"
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -154,8 +140,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "0b3e19658d982bbf",
@@ -260,18 +245,18 @@
       "bases:Create new base": false
     }
   },
-  "active": "3cfa5385104ac3a8",
+  "active": "bab753b7c6fe2cb8",
   "lastOpenFiles": [
-    "notes.md~",
-    "Gespreksverslagen/Gespreksverslag Template.md",
+    "(A.1) Project Plan - DevPly.md",
+    "(B.1) Functioneel Ontwerp - DevPly.md",
+    "(E.1) Testcases - DevPly.md",
     "Gespreksverslagen/04_11_26_Gespreksverslag_Imholz.md",
+    "Gespreksverslagen/Gespreksverslag Template.md",
+    "notes.md~",
     "notes.md",
     "(F.1) Acceptatie testcases - DevPly.md",
-    "(A.1) Project Plan - DevPly.md",
-    "(E.1) Testcases - DevPly.md",
     "(D.1) Testplan - DevPly.md",
     "(C.1) Technisch Ontwerp - DevPly.md",
-    "(B.1) Functioneel Ontwerp - DevPly.md",
     "Testen",
     "Testen/Testrapporten",
     "Testen/Acceptatie testrapporten",

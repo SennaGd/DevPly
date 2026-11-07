@@ -1,11 +1,13 @@
+Gemaakt door Senna Draaijer
 Datum 02 / 11 / 2026
 
-
+---
 ## Inleiding
 Ik heb de opdracht gekregen van Sven Imholz, om een development- en releaseplatform te programmeren geinspireerd op _github projects_ / _trello_. Het project is in het kort een projectmanagementtool waar softwareteams hun werk en planning kunnen beheren. Hierdoor krijgt iedereen in het team een inzicht wat er gedaan moet worden, wat al af is en wat de eisen zijn voor het project. 
 
 Dit projectplan beschrijft het probleem, de doelen het gewenste resultaat de afbakening eisen risicos randvoorwaarden en een globale planning een 
 
+---
 ## Projectomschrijving
 Binnen softwareteams/bedrijven wordt vaak de vraag gesteld _Wat is de voortgang van een product?_ of _Wat heeft programmeur X gemaakt?_, Vaak is er geen goed inzicht voor managers/werknemers om te checken wat de programmeurs hebben gedaan. Als oplossing wordt er veel gebruikt gemaakt van projectmanagementtools zoals _Github Projects_ en _Trello_, met deze programma's kunnen managers requirements opschrijven waar de ontwikkelaars verschillende taken aan kunnen koppelen. Maar, het probleem met deze applicaties is dat ze geen goed inzicht geven over hoe ver een project voor release is. Voor dit project wordt er een applicatie gemaakt waarin de volledige voortgang van requirement tot release tracebaar is en door een AI-agent onderzocht kan worden. De geintegreerde AI zal missende requirements op kunnen halen, taken maken voor een requirement en de projectstatus/releasegereedheid kunnen ophalen.
 
@@ -13,7 +15,7 @@ Het project is een success wanneer er een goed functionerend, betrouwbaar en tra
 
 Zodra alle functionaliteiten beschreven in de MoSCoW gerealiseerd zijn zal het product getest moeten worden, wanneer alle _test-cases_ en _acceptatie-testcases_  behaald zijn zal het product af zijn. 
 
-
+---
 ## Doelstelling
 - Om de voorgang van een project te krijgen.
 - Een overzicht te krijgen hoe ver een product klaar is voor release.
@@ -23,7 +25,7 @@ Zodra alle functionaliteiten beschreven in de MoSCoW gerealiseerd zijn zal het p
 
 ## Resultaat
 Een gebruiker zal een nieuw project kunnen starten, zodra er een nieuw project is gemaakt zal de aanmaker een _hoofdgebruiker_ / _admin_ zijn over het project waardoor deze gebruiker volledige controle heeft over het project. De admin kan in het project een beschrijving toevoegen om voor andere ontwikkelaars / managers aan te kunnen tonen wat het project inhoudt. 
-De hoofgebruiker zal in het project gebruikers kunnen uitnodigen en deze een rol geven, de rollen zijn: _Manager_ / _Ontwikkelaar_.  De gebruikers die als rol _manager_ hebben gekregen zullen de requirements van het project kunnen toevoegen waarbij de ontwikkelaars weer taken kunnen toevoegen. De ontwikkelaars kunnen hierbij ook verschillende ontwikkeltaken, testgevallen/resultaten, afhankelijkheden toevoegen en deze koppelen aan requirements. 
+De hoofgebruiker zal in het project gebruikers kunnen uitnodigen en deze een rol geven, de rollen zijn: _Manager_ / _Ontwikkelaar_.  De gebruikers die als rol _manager_ hebben gekregen zullen de requirements van het project kunnen toevoegen waarbij de _ontwikkelaars_ weer taken kunnen toevoegen. De ontwikkelaars kunnen hierbij ook verschillende ontwikkeltaken, testgevallen/resultaten, afhankelijkheden toevoegen en deze koppelen aan requirements. 
 Voor de voortgang/releasegereedheid te bepalen van een project zal er gekeken worden naar de requirements, zodra alle requirements zijn gerealiseerd zal het product klaar voor release zijn. 
 De ontwikkelaars kunnen gebruik maken van de geintegreerde AI om missende requirements,  gefaalde/niet gemaakte testresultaten op te kunnen halen en om ontwikkeltaken/releasesamenvatting voortebereiden.
 Voor managers is het vooral belangrijk om de status van een project te krijgen. Hiervoor wordt ook gebruik gemaakt van de AI, die zal door het project kijken naar de requirements, gemaakte ontwikkeltaken en testresultaten. Hiermee zal de AI aan de manager de status/releasegereedheid meegeven.
@@ -55,14 +57,12 @@ Voor managers is het vooral belangrijk om de status van een project te krijgen. 
 *   Managers krijgen van de AI een **overzicht van de status** en **releasegereedheid**.
 *   De AI kijkt daarvoor naar: requirements, gemaakte taken en testresultaten.
 
-
-
-
+---
 ## Afbakening - MoSCoW
 
 | ID     | EIS                                                                             | Prioriteit  |
 | ------ | ------------------------------------------------------------------------------- | ----------- |
-| E - 1  | Inloggen                                                                        | Must-Have   |
+| E - 1  | Inloggen / Account aanmaken                                                     | Must-Have   |
 | E - 2  | Projecten aanmaken                                                              | Must-Have   |
 | E - 3  | Projecten beheren                                                               | Must-Have   |
 | E - 4  | Releasegereedheid op kunnen halen met de geintegreerde AI                       | Must-Have   |
@@ -79,22 +79,29 @@ Voor managers is het vooral belangrijk om de status van een project te krijgen. 
 | E - 15 | Ontbrekende testresultaten voor de requirements ophalen met de geintegreerde AI | Must-Have   |
 | E - 16 | Projectbeschrijving aan project toevoegen                                       | Should-Have |
 | E - 17 | Licht / Donker thema knop                                                       | Could-Have  |
-## Risicoanalyse
-| Risico                                                                          | Impact op opdrachtgever | Kans   |
-| :------------------------------------------------------------------------------ | :---------------------- | :----- |
-| Onvoldoende/te late feedback door beperkte **beschikbaarheid**                  | Hoog                    | Hoog   |
-| AI-output onbetrouwbaar / **hallucinaties** in requirements en taken            | Hoog                    | Hoog   |
-| Opdrachtgever is ziek, waardoor er **geen feedback/beslissingen mogelijk zijn** | Middel                  | Middel |
+| E - 18 | Uitloggen                                                                       | Could-Have  |
+| E - 19 | Account bewerken                                                                | Could-Have  |
+| E - 20 | Projecten zoeken met een form                                                   | Could-Have  |
+| E - 21 | Meerdere AI Modellen                                                            | Wont-Have   |
 
+---
+## Risicoanalyse
+| Risico                                                                                 | Impact op opdrachtgever | Kans   |
+| :------------------------------------------------------------------------------------- | :---------------------- | :----- |
+| Onvoldoende/te late feedback door beperkte **beschikbaarheid**                         | Hoog                    | Hoog   |
+| AI-output onbetrouwbaar / **hallucinaties** in requirements en taken                   | Hoog                    | Hoog   |
+| Opdrachtgever is ziek, waardoor er **geen feedback/beslissingen mogelijk zijn**        | Middel                  | Middel |
+| SQL-Injectie beveiligingsrisico, waardoor bots/gebruikers de database kunnen leeghalen | Hoog                    | Laag   |
+|                                                                                        |                         |        |
+
+---
 
 ## Randvoorwaarde
 - De opdrachtgever is elke week minimaal 30 minuten fysiek beschiktbaar voor het beantwoorden van vragen
 - De opdrachtgever is elke twee weken beschiktbaar voor het testen van de applicatie.
 - De opdrachtgever is beschiktbaar via teams om vragen te beantwoorden.
 
-
-
-
+---
 ## Fasering
 
 | Fase                              | Periode                         | Belangrijkste Activiteiten                                                                                                                                           | OpleverProduct                                                                   |
@@ -106,12 +113,12 @@ Voor managers is het vooral belangrijk om de status van een project te krijgen. 
 | **5. Testing & Validatie**        | Week 3 – 9<br>(25 nov – 24 jan) | Unit/Integratietesten tijdens bouwen.<br>end to end testen van alle rollen, AI-output validatie (kwaliteit), Acceptatietesten met opdrachtgever (2-wekelijks).       | Testrapporten, Ondertekende Acceptatieformulieren                                |
 | **6. Oplevering**                 | Week 10<br>(20 – 22 jan)        | Laatste bugfixes, Documentatie (README, Handleiding, API), Demo voorbereiden, Formele overdracht aan opdrachtgever.                                                  | Geaccepteerd Product + Documentatie                                              |
 
-
+---
 ## Planning
 
 | Dag      | Taak                                                                                         | Uren |
 | :------- | :------------------------------------------------------------------------------------------- | :--: |
-| 06-11-26 | Projectplan en Opzet (Repo, Project structuur)                                               |  54  |
+| 06-11-26 | Projectplan en Opzet (Repo, Project structuur)                                               |  5   |
 | 11-11-26 | Functioneel ontwerp (Use cases, Datamodel)                                                   |  7   |
 | 13-11-26 | Schetsen / Wireframes ontwerpen                                                              |  7   |
 | 15-11-26 | Technisch ontwerp (Architectuur, API contracts, AI-service laag)                             |  7   |
@@ -145,4 +152,10 @@ Voor managers is het vooral belangrijk om de status van een project te krijgen. 
 | 20-01-27 | Opleveren Product: Finale acceptatietest / Reflectieverslag Schrijven en opdracht overdragen |  5   |
 | 22-01-27 | **Deadline**                                                                                 |  -   |
 
+---
 
+## Algemene Informatie
+Productowner: Sven Imholz
+Uitvoerder(s): Senna Draaijer
+
+---

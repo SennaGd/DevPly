@@ -12,7 +12,7 @@ De eerste vraag dat ik had gesteld was of het een github clone was, hierbij werd
 
 Bij de tweede vraag was of er meerdere gebruikers in een project kunnen zitten. Bij de vorige vraag was al geconcludeerd dat managers en ontwikkelaars een inzicht krijgen van hoe productieklaar een project is en wat voor functionaliteiten er nog gemaakt moet worden. 
 
-daarna vroeg ik of hoe de testomgeving werkte, hierop vertelde Imholz dat er geen bestanden worden opgeslagen in het systeem maar meer dat het een soort Trellobord is, dus voor het testen zullen de ontwikkelaars zelf moeten uitvoeren, waarop zij een checklist door kunnen gaan. 
+Daarna vroeg ik of hoe de testomgeving werkte, hierop vertelde Imholz dat er geen bestanden worden opgeslagen in het systeem maar meer dat het een soort Trellobord is, dus voor het testen zullen de ontwikkelaars zelf moeten uitvoeren, waarop zij een checklist door kunnen gaan. 
 
 Tijdens het vragen gingen wij ook door het document: Proefproeve_03_Development_en_releaseplatform heen. Hierbij werden een aantal eisen duidelijk. 
 
