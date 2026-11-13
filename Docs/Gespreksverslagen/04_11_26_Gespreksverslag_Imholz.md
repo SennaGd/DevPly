@@ -6,6 +6,7 @@ Locatie: Firda Harste 4-6, Lokaal: C111
 Aanwezig: Sven Imholz ( Productowner )  
 Auteur: Senna Draaijer
 
+
 Dit gesprek vond plaats om de benodigde functionaliteiten en eisen vast te stellen voor het development- en releaseplatform project, hierbij worden een aantal vragen gesteld aan de productowner om een beeld te krijgen van het gegeven project. Hierbij zijn een paar vragen vastgesteld. Deze staan onder het kopje _vragen_. 
 
 De eerste vraag dat ik had gesteld was of het een github clone was, hierbij werd verteld dat het project niet een github clone is maar meer een inspiratie is van "github projects" / "github issues". Denk hieraan een management systeem/backlog systeem waar ontwikkelaars en managers een inzicht krijgen van het gemaakte project en eventuele releaseversies.
@@ -24,14 +25,14 @@ Voor de versies van een project stelde meneer Imholz voor dat het drie type's va
 
 Voor de laatste vraag(en) had ik gevraagd of ik twee keer in de week een onwikkelsgesprek kan hebben, de productowner zei dat ik er van uitmoest gaan dat hij minstens een keer in de week wel kan maar twee wordt wel moeilijker sinds hij ook een docent is met afwisselende taken. Dus heb ik afgesproken met Imholz dat ik hem een bericht zal sturen om een gesprek aan te vragen.
 
-**Vragen**
+## Vragen
 - Is het een clone van github?
 - Meerdere gebruikers in een project?
 - hoe werkt de testomgeving?
 - Voorkeur kleurenthema?
 - Wat wordt er bedoeld met "Afhankelijk" en "externe commits, issues of pull requests"?
 
-**Wijzigingsverzoeken**
+## Verbetervoorstellen
 Tijdens het bespreken van het project zijn er een paar wijzingen gemaakt, hieronder bevinden zich de gemaakte wijzigingen.
 
 ---

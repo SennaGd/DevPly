@@ -3,7 +3,7 @@
 _development en release platform voor ontwikkelaars_
 
 __Vragen__
-- Gewenste taal? -> taal schakelaar? 
+- Gewenste taal? --> taal schakelaar? 
 - Wie kan een nieuw project aanmaken?
 - Wie beheerd de rollen (managers/ontwikkelaars)
 - Zitten er ook wegingen op ontwikkeltaken om de voortgang eventueel duidelijker te maken?
