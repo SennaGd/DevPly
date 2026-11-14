@@ -7,8 +7,5 @@ export const assets = [
 ];
 
 export const routes = [
-	{"id":"/","page":true,"endpoint":false},
-	{"id":"/about","page":true,"endpoint":false},
-	{"id":"/login","page":true,"endpoint":false},
-	{"id":"/signup","page":true,"endpoint":false}
+	{"id":"/","page":true,"endpoint":false}
 ];
