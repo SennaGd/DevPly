@@ -26,6 +26,11 @@ app.add_middleware(
 class LoginRequest(BaseModel):
 	username: str
 	password: str
+class RegisterRequest(BaseModel):
+	username: str
+	email: str
+	password: str
+
 
 
 @app.post("/login")
@@ -46,7 +51,7 @@ async def login(data: LoginRequest, response: Response):
 		"sub": str(user[0]),
 		"username":user[1],
 		"exp":datetime.now(timezone.utc) + timedelta(hours=24)
-	}
+	} 
 	jwt_token = jwt.encode(payload, SECRET_KEY, ALGORITHM)
 
 	response.set_cookie(
@@ -58,6 +63,29 @@ async def login(data: LoginRequest, response: Response):
 	)
 	
 	return {"message": "Logged in"} 
+
+@app.post("/register")
+async def create_account(data: RegisterRequest):
+	conn = connect_db()
+	cur = conn.cursor()
+
+	user = cur.execute(
+			"SELECT * FROM users WHERE username = ?",
+			(data.username,)
+		).fetchone()
+
+	if user == None:
+		cur.execute(
+			"INSERT INTO users VALUES (?,?,?)",
+			(data.username, data.email, data.password,)
+		)
+		conn.commit()
+		conn.close()
+
+		return {"message": "User Created"}
+	else:
+		raise HTTPException(status_code=401, detail="Account already exists")
+
 
 @app.get("/user")
 async def get_current_user(access_token: str | None = Cookie(default=None)):

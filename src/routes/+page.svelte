@@ -1,12 +1,36 @@
-<script>
-	let username = $state("");
-	let password = $state("");
-	let errorMessage = $state("");
-	let isLoading = $state(false);
-	async function handleSubmit(event) {
+<script lang="ts">
+	import { setContext } from 'svelte';
+	import { auth } from '#lib/auth.svelte.js';
+    import { goto } from '$app/navigation';
+
+	let username = $state("")
+	let password = $state("")
+	let email = $state("")
+
+	let responseStatus = $state(404)
+
+	async function createAccount(event: SubmitEvent) {
+		event.preventDefault()	
+
+		try {
+			const response = await fetch(`http://localhost:8000/register`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				credentials: "include",
+				body: JSON.stringify({ username, email, password })
+			})
+
+			console.log(response)
+		} catch (err) {
+
+		} finally {
+
+		}
+
+	}
+	async function login(event: SubmitEvent){
 		event.preventDefault()
-		errorMessage = "";
-		isLoading = true;
+
 		try {
 			const response = await fetch(`http://localhost:8000/login`, {
 				method: "POST",
@@ -14,30 +38,35 @@
 				credentials: "include",
 				body: JSON.stringify({ username, password })
 			})
+			if (!response.ok)
+			{ return }
 
+			auth.responseStatus = response.status
 
-			console.log(response)
-			if (!response.ok) {
-				console.error("Request failed:", response.status);
-				return;
-			}
-			
-			const result = await response.json();
-			console.log(result);
-			console.log(document.cookie.split('; '))
 		} catch(err) {
 			console.log(err)
 		} finally {
-			isLoading = false
+			console.log("status",responseStatus)
+			if (auth.responseStatus == 200) {
+				await goto("/dashboard")
+			}
 		}
 	}	
-	let user = $state("")
 </script>
 
-<form method="POST" onsubmit={handleSubmit}>
+<p>Response Status: {responseStatus}</p>
+<form method="POST" onsubmit={login}>
 	<input bind:value={username} required type="text"/><br/>
-	<input bind:value={password} required type="text"/><br/>
+	<input bind:value={password} required type="password"/><br/>
 	<input type="submit"/>
 </form>
 
-<p></p>
+<form method="POST" onsubmit={createAccount}>
+	<input bind:value={username} required type="text"/><br/>
+	<input bind:value={email} required type="text"/><br/>
+
+	<input bind:value={password} required type="password"/><br/>
+	<input type="submit"/>
+
+</form>
+
