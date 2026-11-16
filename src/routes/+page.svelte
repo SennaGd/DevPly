@@ -24,12 +24,14 @@
 			
 			const result = await response.json();
 			console.log(result);
+			console.log(document.cookie.split('; '))
 		} catch(err) {
 			console.log(err)
 		} finally {
 			isLoading = false
 		}
 	}	
+	let user = $state("")
 </script>
 
 <form method="POST" onsubmit={handleSubmit}>
@@ -37,3 +39,5 @@
 	<input bind:value={password} required type="text"/><br/>
 	<input type="submit"/>
 </form>
+
+<p></p>
