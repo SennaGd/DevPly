@@ -1,8 +1,9 @@
 import jwt
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone 
 
 from fastapi import FastAPI, HTTPException, Response, Cookie
 from fastapi.middleware.cors import CORSMiddleware
+from sqlmodel import Field
 from pydantic import BaseModel
 
 import sqlite3
@@ -28,10 +29,12 @@ class LoginRequest(BaseModel):
 	password: str
 
 class RegisterRequest(BaseModel):
+	id: int | None = Field(default=None, primary_key=True)
 	username: str
 	email: str
 	password: str
-
+	created_at: str = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+	role_id: int = 0
 
 
 @app.post("/login")
@@ -45,12 +48,13 @@ async def login(data: LoginRequest, response: Response):
 			).fetchone()
 	conn.close()
 
-	if not user or user[2] != data.password:
-		raise HTTPException(401, "Invalid credentials")
+	if not user or user[3] != data.password:
+		raise HTTPException(401, "Invalid credentials balls")
 
 	payload = {
 		"sub": str(user[0]),
 		"username":user[1],
+		"role_id":user[5],
 		"exp":datetime.now(timezone.utc) + timedelta(hours=24)
 	} 
 	jwt_token = jwt.encode(payload, SECRET_KEY, ALGORITHM)
@@ -77,8 +81,8 @@ async def create_account(data: RegisterRequest):
 
 	if user == None:
 		cur.execute(
-			"INSERT INTO users VALUES (?,?,?)",
-			(data.username, data.email, data.password,)
+			"INSERT INTO users VALUES (?,?,?,?,?,?)",
+			(data.id, data.username, data.email, data.password, data.created_at, data.role_id,)
 		)
 		conn.commit()
 		conn.close()
@@ -95,10 +99,22 @@ async def get_current_user(access_token: str | None = Cookie(default=None)):
 
 	try: 
 		payload = jwt.decode(access_token, SECRET_KEY, ALGORITHM)
-		return {"id":payload["sub"], "username":payload["username"]}
+		print(payload)
+		return {"id":payload["sub"], "username":payload["username"], "role_id":payload["role_id"]}
 
 	except jwt.ExpiredSignatureError:
 		raise HTTPException(401, "Session expired, please log in again")
 
 	except jwt.InvalidTokenError:
 		raise HTTPException(401, "Invalid token")
+
+@app.get("/roles")
+async def get_roles():
+	conn = connect_db()
+	cur = conn.cursor()
+
+	roles = cur.execute(
+		"SELECT * FROM roles;"
+	)
+
+	return { "message":roles }

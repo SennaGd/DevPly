@@ -6,7 +6,7 @@
 	let username = $state("")
 	let password = $state("")
 	let email = $state("")
-
+	let role = 0
 	let responseStatus = $state(404)
 
 	async function createAccount(event: SubmitEvent) {
@@ -17,7 +17,7 @@
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				credentials: "include",
-				body: JSON.stringify({ username, email, password })
+				body: JSON.stringify({ username, email, password, role })
 			})
 
 			console.log(response)

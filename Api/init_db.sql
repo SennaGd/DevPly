@@ -1,10 +1,10 @@
 CREATE TABLE roles (
-    id int PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     role varchar(255) NOT NULL
 );
 
 CREATE TABLE users (
-    id int PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     username varchar(255) NOT NULL,
     email varchar(255) NOT NULL,
     password varchar(255) NOT NULL CHECK (LENGTH(password) >= 6),
@@ -15,7 +15,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE projects (
-    id int PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     title varchar(255) NOT NULL,
     description text NOT NULL,
     creator_id int NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE projects (
 );
 
 CREATE TABLE project_users (
-    id int PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     project_id int NOT NULL,
     user_id int NOT NULL,
     role_id int NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE project_users (
 );
 
 CREATE TABLE requirements (
-    id int PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     project_id int,
     title varchar(255),
     description text,
@@ -47,7 +47,7 @@ CREATE TABLE requirements (
 );
 
 CREATE TABLE tasks (
-    id int PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     requirement_id int,
     project_id int,
     title varchar(255),
@@ -59,7 +59,7 @@ CREATE TABLE tasks (
 );
 
 CREATE TABLE tests (
-    id int PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     task_id int,
     project_id int,
     title varchar(255),
@@ -69,3 +69,7 @@ CREATE TABLE tests (
     FOREIGN KEY (task_id) REFERENCES tasks(id),
     FOREIGN KEY (project_id) REFERENCES projects(id)
 );
+
+INSERT INTO roles (role) VALUES ('admin'), ('manager'), ('developer'), ('tester');
+INSERT INTO users (username, email, password, created_at, role_id) 
+VALUES ('dev', 'dev@ply.to', '123456', CURRENT_TIMESTAMP, 1);
