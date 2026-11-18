@@ -52,7 +52,7 @@ async def login(data: LoginRequest, response: Response):
 		raise HTTPException(401, "Invalid credentials balls")
 
 	payload = {
-		"sub": str(user[0]),
+		"uid": str(user[0]), # User ID
 		"username":user[1],
 		"role_id":user[5],
 		"exp":datetime.now(timezone.utc) + timedelta(hours=24)
@@ -99,8 +99,7 @@ async def get_current_user(access_token: str | None = Cookie(default=None)):
 
 	try: 
 		payload = jwt.decode(access_token, SECRET_KEY, ALGORITHM)
-		print(payload)
-		return {"id":payload["sub"], "username":payload["username"], "role_id":payload["role_id"]}
+		return {"id":payload["uid"], "username":payload["username"], "role_id":payload["role_id"]}
 
 	except jwt.ExpiredSignatureError:
 		raise HTTPException(401, "Session expired, please log in again")
@@ -118,3 +117,61 @@ async def get_roles():
 	)
 
 	return { "message":roles }
+
+class ProjectRequest(BaseModel):
+	id: int | None = Field(default=None, primary_key=True)
+	title: str
+	description: str
+	creator_id: int	
+	created_at: str = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+
+@app.post("/create_project")
+async def create_project(projectData: ProjectRequest):
+	conn = connect_db()
+	cur = conn.cursor()
+
+	project = cur.execute(
+			"SELECT * FROM projects WHERE title = ?",
+			(projectData.title,)
+		).fetchone()
+
+	if project != None:
+		return {"message":"project already exists"}
+
+	cur.execute(
+		"INSERT INTO projects VALUES (?,?,?,?,?)", (
+			projectData.id, 
+			projectData.title, 
+			projectData.description, 
+			projectData.creator_id, 
+			projectData.created_at
+		)
+	)
+	conn.commit()
+	conn.close()
+
+	return {"message":"Created new project successfully!"}
+
+@app.get("/fetch_projects")
+async def fetch_user_projects(access_token: str | None = Cookie(default=None)):
+	conn = connect_db()
+	cur = conn.cursor()
+
+	if not access_token:
+		raise HTTPException(status_code=401, detail="Not logged in")
+
+	try: 
+		payload = jwt.decode(access_token, SECRET_KEY, ALGORITHM)
+		userId = payload["uid"]	
+
+		projects = cur.execute(
+				"SELECT * FROM projects WHERE creator_id = ?", (userId,)
+		).fetchall()
+
+		return {"message":projects}
+	except jwt.ExpiredSignatureError:
+		raise HTTPException(401, "Session expired, please log in again")
+
+	except jwt.InvalidTokenError:
+		raise HTTPException(401, "Invalid token")
+
