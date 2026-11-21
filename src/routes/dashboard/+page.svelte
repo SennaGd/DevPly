@@ -1,15 +1,26 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { auth } from '#lib/auth.svelte.js';
-    import { goto } from '$app/navigation';
-
+	import { createProject } from "#lib/utils/create_project.ts"
 	interface RolesResponse {
 		message: Record<number, string>
 	}
 	
 	interface RoleItem {
 		id: number
+
 		role: string
+	}
+
+	interface Project {
+		id: number
+		title: string
+		description: string
+		creator_id: number
+		created_time: string
+	}
+
+	interface ProjectsResponse {
+		message: Record<number, Project[]>
 	}
 
 	let roleArr = $state<RoleItem[]>([]) 
@@ -21,6 +32,7 @@
 	let title= $state("")
 	let desc= $state("")
 	
+	let projectData = $state<ProjectsResponse|null>(null)
 	onMount(async () => {
 		let res: Response = await fetch("http://localhost:8000/user", {
 			credentials: "include"
@@ -29,61 +41,32 @@
 		if ( res.ok ) {
 			const data = await res.json();
 			username = data.username
+			console.log(username)
 			roleId = data.role_id-1 // role_id = -1 python > sql indices
 			userId = data.id
 		}
 
-		const roles: Response = await fetch("http://localhost:8000/roles")
-		if ( roles.ok ) {
-			const data: RolesResponse = await roles.json()
-			console.log(data)
-
-			roleArr = Object.entries(data.message)
-							.map(([id,role]) => ({
-								id: Number(id),	
-								role
-							}))
-			user_role = Object.entries(data.message)[roleId][1]
-		}
-		let projectResult: Response = await fetch("http://localhost:8000/fetch_projects", {
+				let projectResult: Response = await fetch("http://localhost:8000/fetch_projects", {
 			method: "GET",
 			headers: { "Content-Type": "application/json"},
 			credentials: "include"
 		})
 		if (res.ok) {
-			const projectsData= await projectResult.json()
-				console.log(Object.entries(projectsData.message)[0][1])
-
+			projectData = await projectResult.json()
+			console.log("projectdata",projectData?.message)
 		}
-		console.log(res)
 	})
-	async function create_project() {
-		console.log("h")
-		try {
-			const creator_id = userId
-			const res: Response = await fetch("http://localhost:8000/create_project", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				credentials: "include",
-				body: JSON.stringify({ title:title, description:desc, creator_id})
-			})
+	
+	async function handleCreateProject(event: SubmitEvent) {
+		event.preventDefault()
+		const res = await createProject({
+			title:title, 
+			description:desc,
+		})
 
-			if (!res.ok) {
-				console.log("request failed")
-			}
-
-			console.log(res)
-
-		} catch(err) {
-
-		} finally {
-			const res: Response = await fetch("http://localhost:8000/fetch_projects", {
-				method: "GET",
-				headers: { "Content-Type": "application/json"},
-				credentials: "include"
-			})
-		}
+		console.log(res)
 	}
+
 </script>
 
 <div>
@@ -97,7 +80,7 @@
 
 	<br/>
 
-	<form onsubmit={create_project}>
+	<form onsubmit={handleCreateProject}>
 		<input bind:value={title} required type="text"/><br/>
 		<input bind:value={desc} required type="text"/><br/>
 
@@ -105,6 +88,16 @@
 
 	</form>
 
+	{#if projectData?.message}
+		{#each projectData.message as [id, title, description, creator_id, created_time] (id)}
+		<div>
+			<h3>Project: {title} (#{id})</h3>
+			<p>Description: {description}</p>
+			<small>Created by user {creator_id} at {created_time}</small>
+			<a href="/project/{id}">{title}</a>
+		</div>
+	{/each}
+{/if}
 	
 </div>
 

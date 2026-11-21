@@ -8,6 +8,9 @@ from pydantic import BaseModel
 
 import sqlite3
 from src.database import connect_db
+import logging
+
+logger = logging.getLogger(__name__)
 
 SECRET_KEY = "change-this-to-a-long-random-secret-string"
 ALGORITHM = "HS256"
@@ -73,7 +76,7 @@ async def login(data: LoginRequest, response: Response):
 async def create_account(data: RegisterRequest):
 	conn = connect_db()
 	cur = conn.cursor()
-
+	logger.info(f"data {data}")
 	user = cur.execute(
 			"SELECT * FROM users WHERE username = ?",
 			(data.username,)
@@ -118,17 +121,51 @@ async def get_roles():
 
 	return { "message":roles }
 
+@app.get("/user/role")
+async def get_user_role(access_token: str | None = Cookie(default=None)):
+	if not access_token:
+		raise HTTPException(status_code=401, detail="Not logged in")
+
+	conn = connect_db()
+	cur = conn.cursor()
+
+	try:
+		payload = jwt.decode(access_token, SECRET_KEY, ALGORITHM)
+
+	except jwt.ExpiredSignatureError:
+		raise HTTPException(401, "Session expired, please log in again")
+
+	except jwt.InvalidTokenError:
+		raise HTTPException(401, "Invalid token")
+
+
 class ProjectRequest(BaseModel):
 	id: int | None = Field(default=None, primary_key=True)
 	title: str
 	description: str
-	creator_id: int	
+	creator_id: int | None = None
 	created_at: str = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 @app.post("/create_project")
-async def create_project(projectData: ProjectRequest):
+async def create_project(projectData: ProjectRequest, access_token: str | None = Cookie(default=None)):
 	conn = connect_db()
 	cur = conn.cursor()
+
+	if not access_token:
+		raise HTTPException(status_code=401, detail="Not logged in")
+
+	try: 
+		payload = jwt.decode(access_token, SECRET_KEY, ALGORITHM)
+		projectData.creator_id = payload["uid"]
+
+	except jwt.ExpiredSignatureError:
+		raise HTTPException(401, "Session expired, please log in again")
+
+	except jwt.InvalidTokenError:
+		raise HTTPException(401, "Invalid token")
+	
+	if projectData.creator_id == None: 
+		raise HTTPException(401, "Missing UID")
 
 	project = cur.execute(
 			"SELECT * FROM projects WHERE title = ?",

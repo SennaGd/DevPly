@@ -1,4 +1,10 @@
 {
 	"/": [],
-	"/dashboard": []
+	"/dashboard": [
+		"src/routes/dashboard/+page.ts"
+	],
+	"/project": [],
+	"/project/[id]": [
+		"src/routes/project/[id]/+page.js"
+	]
 }
