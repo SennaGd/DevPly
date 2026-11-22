@@ -1,19 +1,15 @@
 import jwt
 from datetime import datetime, timedelta, timezone 
-
+HTTPException
 from fastapi import FastAPI, HTTPException, Response, Cookie
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import Field
 from pydantic import BaseModel
 
 import sqlite3
-from src.database import connect_db
-import logging
-
-logger = logging.getLogger(__name__)
-
-SECRET_KEY = "change-this-to-a-long-random-secret-string"
-ALGORITHM = "HS256"
+from routers.database import connect_db
+import security
+from routers import users
 
 app = FastAPI()
 app.add_middleware(
@@ -26,18 +22,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-class LoginRequest(BaseModel):
-	username: str
-	password: str
-
-class RegisterRequest(BaseModel):
-	id: int | None = Field(default=None, primary_key=True)
-	username: str
-	email: str
-	password: str
-	created_at: str = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-	role_id: int = 0
+app.include_router(users.router)
 
 
 @app.post("/login")
@@ -73,26 +58,6 @@ async def login(data: LoginRequest, response: Response):
 	return {"message": "Logged in"} 
 
 @app.post("/register")
-async def create_account(data: RegisterRequest):
-	conn = connect_db()
-	cur = conn.cursor()
-	logger.info(f"data {data}")
-	user = cur.execute(
-			"SELECT * FROM users WHERE username = ?",
-			(data.username,)
-		).fetchone()
-
-	if user == None:
-		cur.execute(
-			"INSERT INTO users VALUES (?,?,?,?,?,?)",
-			(data.id, data.username, data.email, data.password, data.created_at, data.role_id,)
-		)
-		conn.commit()
-		conn.close()
-
-		return {"message": "User Created"}
-	else:
-		raise HTTPException(status_code=401, detail="Account already exists")
 
 
 @app.get("/user")
