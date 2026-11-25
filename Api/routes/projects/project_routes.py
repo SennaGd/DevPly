@@ -67,7 +67,7 @@ async def fetch_user_projects(access_token: str | None = Cookie(None)):
 	except jwt.InvalidTokenError:
 		raise HTTPException(401, "Invalid token")
 
-@router.post("/fetch-one")
+@router.post("/fetch_one")
 async def fetch_one_project(project: FetchProjectRequest, access_token: str | None = Cookie(None)):
 	conn = connect_db()
 	cur = conn.cursor()
@@ -96,6 +96,26 @@ async def fetch_one_project(project: FetchProjectRequest, access_token: str | No
 		raise HTTPException(401, "Invalid token")
 
 
+class ProjectUsersRequest(BaseModel):
+	project_id: str
 
 @router.post("/users")
-async def fetch_all_users(project_id: ):
+async def fetch_all_users(project: ProjectUsersRequest, access_token: str | None = Cookie(None)):
+	if not access_token:
+		raise HTTPException(401, "Not logged in")
+
+	if project.project_id != None:
+		project_id = project.project_id
+
+	try:
+		payload = decode_payload(access_token)
+		user_id = payload["uid"]
+		
+		
+
+	
+	except jwt.ExpiredSignatureError:
+		raise HTTPException(401, "Session expired, please log in again")
+
+	except jwt.InvalidTokenError:
+		raise HTTPException(401, "Invalid token")
