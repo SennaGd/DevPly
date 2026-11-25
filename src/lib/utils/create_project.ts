@@ -25,16 +25,17 @@
 export interface NewProjectPayload {
 	title: string 
 	description: string
+	creator_id: number
 }
 
 export async function createProject(payload: NewProjectPayload) {
 	console.log(payload.title)
 	try {
-		const res: Response = await fetch("http://localhost:8000/create_project", {
+		const res: Response = await fetch("http://localhost:8000/projects/create", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			credentials: "include",
-			body: JSON.stringify({ title:payload.title, description:payload.description })
+			body: JSON.stringify({ title:payload.title, description:payload.description, creator_id:payload.creator_id })
 		})
 
 		if (!res.ok) {

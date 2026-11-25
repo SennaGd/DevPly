@@ -46,7 +46,7 @@
 			userId = data.id
 		}
 
-				let projectResult: Response = await fetch("http://localhost:8000/fetch_projects", {
+		let projectResult: Response = await fetch("http://localhost:8000/projects/fetch_all", {
 			method: "GET",
 			headers: { "Content-Type": "application/json"},
 			credentials: "include"
@@ -62,6 +62,7 @@
 		const res = await createProject({
 			title:title, 
 			description:desc,
+			creator_id:userId,
 		})
 
 		console.log(res)
@@ -70,14 +71,14 @@
 </script>
 
 <div>
-	<p>Your username is '<b>{username}</b>' and you are a '<b>{user_role}</b>'</p>
-
+	<p>Your username is '<b>{username}</b>' </p>
 	{#if user_role == "admin"}
-		admin
+		you're role: "admin"
 	{:else}
-		normal user	
+		you're role: "normal user"
 	{/if}
 
+	<br/>
 	<br/>
 
 	<form onsubmit={handleCreateProject}>
@@ -87,11 +88,12 @@
 		<input type="submit"/>
 
 	</form>
-
+	<br/>
+	<h1>Projects</h1>
 	{#if projectData?.message}
 		{#each projectData.message as [id, title, description, creator_id, created_time] (id)}
 		<div>
-			<h3>Project: {title} (#{id})</h3>
+			<h3>Project: {title}</h3>
 			<p>Description: {description}</p>
 			<small>Created by user {creator_id} at {created_time}</small>
 			<a href="/project/{id}">{title}</a>

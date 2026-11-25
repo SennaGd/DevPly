@@ -7,11 +7,9 @@ export interface RegisterPayload {
 
 export async function createAccount(payload: RegisterPayload) {
 	console.log(payload)
-	try {
-		const response = await fetch(`http://localhost:8000/register`, {
+	try { const response = await fetch("http://localhost:8000/register", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			credentials: "include",
 			body: JSON.stringify(payload)
 
 		})

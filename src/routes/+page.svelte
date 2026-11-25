@@ -27,19 +27,19 @@
 
 <!-- login -->
 <form method="POST" onsubmit={handleLoginRequest}>
+	<label>username</label><br/>
 	<input bind:value={username} required type="text"/><br/>
+	<label>email</label><br/>
+	<input bind:value={email} required type="text"/><br/>
+	<label>password</label><br/>
 	<input bind:value={password} required type="password"/><br/>
-	<input type="submit"/>
+	<input value="login" type="submit"/>
 </form>
 
 
 <!-- register new user -->
 <form onsubmit={handleCreateAccount}>
-	<input bind:value={username} required type="text"/><br/>
-	<input bind:value={email} required type="text"/><br/>
-
-	<input bind:value={password} required type="password"/><br/>
-	<input type="submit"/>
+	<input value="create account" type="submit"/>
 
 </form>
 
