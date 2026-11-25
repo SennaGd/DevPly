@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { fetchProject } from "#lib/utils/fetch_project.ts"
     import { onMount } from "svelte";
+	let title = $state("")
+	let description= $state("")
 
 	let { data } = $props();
 	let project_id = $state("")	
@@ -17,20 +19,26 @@
 	} )
 
 	async function createRequirement()	{
+		console.log(title, description)	
 		
-
 	}
 </script>
 
 {project[1]} <br/>
 {project[2]}
 
-<form>
-	<br/>
-	<input type="label"/>	<br/>
-	<br/>
-	<input type="label"/>	<br/>
 
+<br/><br/>
+<form onsubmit={createRequirement}>
+	<label>
+		Requirement Title<br/>
+		<input bind:value={title} required type="text"/>
+	</label><br/>
+	
+	<label>
+		Description<br/>
+		<input bind:value={description} required type="text"/>
+	</label><br/>
 
-	<input type="submit" onsubmit={createRequirement}/>
+	<input type="submit"/>
 </form>

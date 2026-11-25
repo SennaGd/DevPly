@@ -8,7 +8,7 @@ from utils.codec import encode_payload
 from utils.database import get_user, connect_db
 from utils.user import generate_access_token 
 
-router = APIRouter(prefix="/projects", tags=["Users", "Authentication"])
+router = APIRouter(prefix="/users", tags=["Users", "Authentication"])
 
 @router.post("/login")
 async def login(data: LoginRequest, response: Response):

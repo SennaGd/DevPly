@@ -24,18 +24,6 @@ CREATE TABLE projects (
     FOREIGN KEY (creator_id) REFERENCES users(id)
 );
 
-CREATE TABLE project_users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    project_id int NOT NULL,
-    user_id int NOT NULL,
-    role_id int NOT NULL,
-    joined_at datetime,
-
-    FOREIGN KEY (project_id) REFERENCES projects(id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (role_id) REFERENCES roles(id)
-);
-
 CREATE TABLE requirements (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     project_id int,
@@ -70,6 +58,26 @@ CREATE TABLE tests (
     FOREIGN KEY (project_id) REFERENCES projects(id)
 );
 
+CREATE TABLE invites (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	user_id int,
+	project_id int,
+	status varchar(128),
+	joined_at datetime,
+
+	FOREIGN KEY (user_id) REFERENCES users(id),
+	FOREIGN KEY (project_id) REFERENCES projects(id)
+);
+
 INSERT INTO roles (role) VALUES ('admin'), ('manager'), ('developer'), ('tester');
 INSERT INTO users (username, email, password, created_at, role_id) 
 VALUES ('dev', 'dev@ply.to', '123456', CURRENT_TIMESTAMP, 1);
+
+INSERT INTO users (username, email, password, created_at, role_id) 
+VALUES ('test', 'test@mail.to', '123456', CURRENT_TIMESTAMP, 1);
+
+INSERT INTO projects (title, description, creator_id, created_at)
+VALUES ('invite project', 'testing if multiple users are in project', 1, CURRENT_TIMESTAMP);
+
+INSERT INTO invites (user_id, project_id, status, joined_at)
+VALUES (2, 1, 'joined', CURRENT_TIMESTAMP);

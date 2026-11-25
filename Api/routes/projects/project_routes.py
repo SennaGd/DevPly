@@ -2,7 +2,7 @@ from sqlite3 import Connection, Cursor
 
 from pydantic import BaseModel
 
-from .project_models import ( ProjectRequest )
+from .project_models import ( FetchProjectRequest, ProjectRequest )
 from fastapi import Response, HTTPException, APIRouter, Depends, Cookie
 
 # helper functions
@@ -67,9 +67,6 @@ async def fetch_user_projects(access_token: str | None = Cookie(None)):
 	except jwt.InvalidTokenError:
 		raise HTTPException(401, "Invalid token")
 
-class FetchProjectRequest(BaseModel):
-	project_id: str 
-
 @router.post("/fetch-one")
 async def fetch_one_project(project: FetchProjectRequest, access_token: str | None = Cookie(None)):
 	conn = connect_db()
@@ -81,11 +78,13 @@ async def fetch_one_project(project: FetchProjectRequest, access_token: str | No
 	try:
 		payload = decode_payload(access_token)
 		userId = payload["uid"]
-
+		if project.project_id != None:
+			project_id = project.project_id
 		project = cur.execute("""
 			SELECT * FROM projects WHERE id = ? and creator_id = ?; 
 		""", (project.project_id, userId)).fetchone()
-
+		
+		
 		if project == "None":
 			return {"message":"No access"}
 		else:
@@ -95,3 +94,8 @@ async def fetch_one_project(project: FetchProjectRequest, access_token: str | No
 
 	except jwt.InvalidTokenError:
 		raise HTTPException(401, "Invalid token")
+
+
+
+@router.post("/users")
+async def fetch_all_users(project_id: ):
