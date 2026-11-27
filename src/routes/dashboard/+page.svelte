@@ -1,15 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { createProject } from "#lib/utils/create_project.ts"
-	interface RolesResponse {
-		message: Record<number, string>
-	}
-	
-	interface RoleItem {
-		id: number
-
-		role: string
-	}
+	import { getProjects } from "#lib/utils/fetch_projects.ts"
+    import { getUser } from '#lib/utils/get_user.ts';
 
 	interface Project {
 		id: number
@@ -23,62 +16,42 @@
 		message: Record<number, Project[]>
 	}
 
-	let roleArr = $state<RoleItem[]>([]) 
-	let username = $state("")
-	let userId = 0
-	let roleId = 0
-	let user_role = $state("")
-
-	let title= $state("")
-	let desc= $state("")
-	
 	let projectData = $state<ProjectsResponse|null>(null)
-	onMount(async () => {
-		let res: Response = await fetch("http://localhost:8000/user", {
-			credentials: "include"
-		})
+	async function handleFetchProjects(event?: SubmitEvent) {
+		if ( event ) { event.preventDefault() } 
 
-		if ( res.ok ) {
-			const data = await res.json();
-			username = data.username
-			console.log(username)
-			roleId = data.role_id-1 // role_id = -1 python > sql indices
-			userId = data.id
+		const res = await getProjects()
+		if (res != null && res.ok) {
+			projectData = await res.json()
 		}
-
-		let projectResult: Response = await fetch("http://localhost:8000/projects/fetch_all", {
-			method: "GET",
-			headers: { "Content-Type": "application/json"},
-			credentials: "include"
-		})
-		if (res.ok) {
-			projectData = await projectResult.json()
-			console.log("projectdata",projectData?.message)
-		}
-	})
-	
-	async function handleCreateProject(event: SubmitEvent) {
-		event.preventDefault()
-		const res = await createProject({
-			title:title, 
-			description:desc,
-			creator_id:userId,
-		})
-
-		console.log(res)
 	}
 
+	let username = $state("")
+	let userId = 0
+	onMount(async () => {
+		let res = await getUser()
+		if ( res && res.ok) {
+			const data = await res.json();
+			username = data.username
+			userId = data.id
+		}
+		handleFetchProjects()
+	})
+	
+	// variables from form
+	let title= $state("")
+	let desc= $state("")
+	async function handleCreateProject(event: SubmitEvent) {
+		event.preventDefault()
+		if (userId != 0) {
+			await createProject({ title:title, description:desc,creator_id:userId })
+			handleFetchProjects()
+		}
+	}
 </script>
 
 <div>
 	<p>Your username is '<b>{username}</b>' </p>
-	{#if user_role == "admin"}
-		you're role: "admin"
-	{:else}
-		you're role: "normal user"
-	{/if}
-
-	<br/>
 	<br/>
 
 	<form onsubmit={handleCreateProject}>

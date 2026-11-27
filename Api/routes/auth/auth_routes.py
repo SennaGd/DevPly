@@ -1,10 +1,10 @@
 from sqlite3 import Connection, Cursor
 
 from .auth_models import ( LoginRequest, RegisterRequest)
-from fastapi import Response, HTTPException, APIRouter, Depends
+from fastapi import Cookie, Response, HTTPException, APIRouter, Depends
 
 # helper functions
-from utils.codec import encode_payload
+from utils.codec import decode_payload, encode_payload
 from utils.database import get_user, connect_db
 from utils.user import generate_access_token 
 
@@ -53,6 +53,17 @@ def insert_user(cur: Cursor, data: RegisterRequest):
 	)
 
 	return cur
+
+
+@router.get("/user")
+async def get_current_user(access_token: str | None = Cookie(default=None)):
+	if not access_token:
+		raise HTTPException(status_code=401, detail="Not logged in")
+
+	payload = decode_payload(access_token)
+	return {"id":payload["uid"], "username":payload["username"], "role_id":payload["role_id"]}
+
+
 # @router.get("/register")
 # async def register(data: RegisterRequest):
 # 	user: tuple | None = get_user(data.username)

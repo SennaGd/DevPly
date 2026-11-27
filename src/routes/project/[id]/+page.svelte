@@ -12,10 +12,10 @@
 
 	if ( data.projectId ) {
 		project_id = data.projectId
-	} 
+	}
 		
 	onMount(async () => { 
-		project = await fetchProject({project_id})
+		project = await fetchProject({project_id:project_id})
 	} )
 
 	async function createRequirement()	{
@@ -24,8 +24,8 @@
 	}
 </script>
 
-{project[1]} <br/>
-{project[2]}
+
+
 
 
 <br/><br/>

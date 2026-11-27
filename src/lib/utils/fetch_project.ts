@@ -1,20 +1,15 @@
+import { fetch_request } from "#lib/core/fetch.ts";
 export interface ProjectPayload{
 	project_id:string
 }
 
-export async function fetchProject(payload:ProjectPayload) {
+
+export async function fetchProject(payload: ProjectPayload) {
 	try {
-		console.log(payload)
-		const res: Response = await fetch("http://localhost:8000/projects/fetch-one", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			credentials: "include",
-			body: JSON.stringify({ "project_id" : payload.project_id})
-		})
+		const res = await fetch_request("/projects/fetch_one", "POST", true , {"project_id":"1"})
+		const data = await res.json()
 
-		const data = await res.json().catch(() => null)
-
-		return data.message
+		console.log("data", data.message)
 	} catch(err) {
 		console.log(err)
 	}

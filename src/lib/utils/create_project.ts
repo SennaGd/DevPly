@@ -1,26 +1,4 @@
-	async function create_project() {
-		try {
-			const res: Response = await fetch("http://localhost:8000/create_project", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				credentials: "include",
-				body: JSON.stringify({ title:title, description:desc })
-			})
-
-			if (!res.ok) {
-				console.log("request failed")
-			}
-
-		} catch(err) {
-
-		} finally {
-			const res: Response = await fetch("http://localhost:8000/fetch_projects", {
-				method: "GET",
-				headers: { "Content-Type": "application/json"},
-				credentials: "include"
-			})
-		}
-	}
+import { fetch_request } from "#lib/core/fetch.ts";
 
 export interface NewProjectPayload {
 	title: string 
@@ -29,21 +7,15 @@ export interface NewProjectPayload {
 }
 
 export async function createProject(payload: NewProjectPayload) {
-	console.log(payload.title)
 	try {
-		const res: Response = await fetch("http://localhost:8000/projects/create", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			credentials: "include",
-			body: JSON.stringify({ title:payload.title, description:payload.description, creator_id:payload.creator_id })
-		})
+		const res = await fetch_request(
+			"/projects/create", "POST", true, payload
+		)
 
 		if (!res.ok) {
-			return {"Message": "Failed"}
-		} else {
-			return {"Message": "Success"}
+			console.log("request failed")
 		}
 	} catch(err) {
-		return {"Message": err}
+		console.log(err)
 	} 
 }

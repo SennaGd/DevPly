@@ -1,0 +1,119 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { createProject } from "#lib/utils/create_project.ts"
+	import { getProjects } from "#lib/utils/fetch_projects.ts"
+
+	interface RolesResponse {
+		message: Record<number, string>
+	}
+	
+	interface RoleItem {
+		id: number
+
+		role: string
+	}
+
+	interface Project {
+		id: number
+		title: string
+		description: string
+		creator_id: number
+		created_time: string
+	}
+
+	interface ProjectsResponse {
+		message: Record<number, Project[]>
+	}
+
+	let roleArr = $state<RoleItem[]>([]) 
+	let username = $state("")
+	let userId = 0
+	let roleId = 0
+	let user_role = $state("")
+
+	let title= $state("")
+	let desc= $state("")
+	
+	let projectData = $state<ProjectsResponse|null>(null)
+
+	async function handleFetchProjects(event?: SubmitEvent) {
+		if ( event ) {
+			event.preventDefault()
+		} 
+		const res = await getProjects()
+		console.log(res)
+		if (res != null && res.ok) {
+			projectData = await res.json()
+		}
+
+	}
+
+	onMount(async () => {
+		let res: Response = await fetch("http://localhost:8000/user", {
+			credentials: "include"
+		})
+
+		if ( res.ok ) {
+			const data = await res.json();
+			username = data.username
+			console.log(username)
+			roleId = data.role_id-1 // role_id = -1 python > sql indices
+			userId = data.id
+		}
+		handleFetchProjects()
+//		let projectResult: Response = await fetch("http://localhost:8000/projects/fetch_all", {
+//			method: "GET",
+//			headers: { "Content-Type": "application/json"},
+//			credentials: "include"
+//		})
+//		if (res.ok) {
+//			projectData = await projectResult.json()
+//			console.log("projectdata",projectData?.message)
+//		}
+	})
+	
+	async function handleCreateProject(event: SubmitEvent) {
+		event.preventDefault()
+		const res = await createProject({
+			title:title, 
+			description:desc,
+			creator_id:userId,
+		})
+		handleFetchProjects()
+	}
+
+</script>
+
+<div>
+	<p>Your username is '<b>{username}</b>' </p>
+	{#if user_role == "admin"}
+		you're role: "admin"
+	{:else}
+		you're role: "normal user"
+	{/if}
+
+	<br/>
+	<br/>
+
+	<form onsubmit={handleCreateProject}>
+		<input bind:value={title} required type="text"/><br/>
+		<input bind:value={desc} required type="text"/><br/>
+
+		<input type="submit"/>
+
+	</form>
+	<br/>
+	<h1>Projects</h1>
+	{#if projectData?.message}
+		{#each projectData.message as [id, title, description, creator_id, created_time] (id)}
+		<div>
+			<h3>Project: {title}</h3>
+			<p>Description: {description}</p>
+			<small>Created by user {creator_id} at {created_time}</small>
+			<a href="/project/{id}">{title}</a>
+		</div>
+	{/each}
+{/if}
+	
+</div>
+

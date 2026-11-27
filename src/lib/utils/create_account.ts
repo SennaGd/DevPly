@@ -1,3 +1,5 @@
+import { fetch_request } from "#lib/core/fetch.ts";
+
 export interface RegisterPayload {
 	username: string
 	email: string
@@ -7,19 +9,13 @@ export interface RegisterPayload {
 
 export async function createAccount(payload: RegisterPayload) {
 	console.log(payload)
-	try { const response = await fetch("http://localhost:8000/register", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(payload)
-
-		})
-
+	try { 
+		const res = await fetch_request("/users/register", "POST", false, payload)
 		const data = await response.json().catch(() => null)
 
 		if (!response.ok) {
 			console.log("Failed to create account, reason:", response)
 		}
-
 	} catch (err) {
 		console.log("Error creating user ", err)
 	} 

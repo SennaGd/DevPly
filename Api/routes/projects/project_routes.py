@@ -84,11 +84,11 @@ async def fetch_one_project(project: FetchProjectRequest, access_token: str | No
 			SELECT * FROM projects WHERE id = ? and creator_id = ?; 
 		""", (project.project_id, userId)).fetchone()
 		
-		
 		if project == "None":
 			return {"message":"No access"}
 		else:
 			return {"message":project}
+
 	except jwt.ExpiredSignatureError:
 		raise HTTPException(401, "Session expired, please log in again")
 
