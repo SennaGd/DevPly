@@ -106,13 +106,10 @@ async def fetch_all_users(project: ProjectUsersRequest, access_token: str | None
 
 	if project.project_id != None:
 		project_id = project.project_id
-
+	
 	try:
 		payload = decode_payload(access_token)
 		user_id = payload["uid"]
-		
-		
-
 	
 	except jwt.ExpiredSignatureError:
 		raise HTTPException(401, "Session expired, please log in again")

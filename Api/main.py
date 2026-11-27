@@ -11,7 +11,7 @@ from utils.env import ADDRESS,WEB_PORT
 
 from routes.auth import auth_routes
 from routes.projects import project_routes 
-
+from routes.project_utils import project_utils_routes
 SECRET_KEY = "change-this-to-a-long-random-secret-string"
 ALGORITHM = "HS256"
 
@@ -29,6 +29,7 @@ app.add_middleware(
 
 app.include_router(auth_routes.router)
 app.include_router(project_routes.router)
+app.include_router(project_utils_routes.router)
 
 #@app.post("/register")
 #async def create_account(data: RegisterRequest):
