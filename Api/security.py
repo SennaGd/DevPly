@@ -1,11 +1,7 @@
-from typing import Any
-
-from fastapi import Cookie, HTTPException
-import jwt
+from . import *
 
 SECRET_KEY = "change-this-to-a-long-random-secret-string"
 ALGORITHM = "HS256"
-
 
 # returns decoded payload
 def decode_payload(access_token: str | None = Cookie(None)):

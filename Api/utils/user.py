@@ -1,7 +1,5 @@
-from datetime import datetime, timedelta, timezone
-from typing import Any
+from . import *
 
-from .database import connect_db
 def generate_access_token(user: tuple) -> dict[str, Any]:
 	return {
 		"uid": str(user[0]), 

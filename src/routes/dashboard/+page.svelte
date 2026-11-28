@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { createProject } from "#lib/utils/create_project.ts"
-	import { getProjects } from "#lib/utils/fetch_projects.ts"
-    import { getUser } from '#lib/utils/get_user.ts';
+	import { createProject } from "#lib/utils/projects/create_project.ts"
+	import { getProjects } from "#lib/utils/projects/fetch_projects.ts"
+    import { getUser } from '#lib/utils/user/get_user_info.ts';
+	import { fetchInvites } from '#lib/utils/invites/fetch_invites.ts';
 
 	interface Project {
 		id: number
@@ -28,15 +29,7 @@
 
 	let username = $state("")
 	let userId = 0
-	onMount(async () => {
-		let res = await getUser()
-		if ( res && res.ok) {
-			const data = await res.json();
-			username = data.username
-			userId = data.id
-		}
-		handleFetchProjects()
-	})
+
 	
 	// variables from form
 	let title= $state("")
@@ -48,12 +41,35 @@
 			handleFetchProjects()
 		}
 	}
+
+	onMount(async () => {
+		let res = await getUser()
+		if ( res && res.ok) {
+			const data = await res.json();
+			username = data.username
+			userId = data.id
+		}
+		handleFetchProjects()
+		
+		handleFetchInvites()
+	})
+	let invites = $state([])
+	async function handleFetchInvites() {
+		invites = await fetchInvites()	
+	}
 </script>
 
 <div>
 	<p>Your username is '<b>{username}</b>' </p>
 	<br/>
 
+	<h1>invites</h1>
+	{#each invites as [id, user_id, project_id, status, joined_at] (id)}	
+		
+		{status}
+	{/each}
+
+	<!--
 	<form onsubmit={handleCreateProject}>
 		<input bind:value={title} required type="text"/><br/>
 		<input bind:value={desc} required type="text"/><br/>
@@ -73,6 +89,6 @@
 		</div>
 	{/each}
 {/if}
-	
+-->	
 </div>
 

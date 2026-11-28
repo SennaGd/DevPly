@@ -1,7 +1,4 @@
-from typing import Any
-
-from fastapi import Cookie, HTTPException
-import jwt
+from . import *
 
 SECRET_KEY = "change-this-to-a-long-random-secret-string"
 ALGORITHM = "HS256"

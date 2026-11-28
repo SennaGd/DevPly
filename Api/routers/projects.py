@@ -1,0 +1,80 @@
+# endpoints for manipulating projects
+from . import * 
+
+router = APIRouter(prefix="/projects", tags=["Project"])
+
+# /projects/create
+@router.post("/create")
+async def create_project(projectData: ProjectRequest):
+	conn = connect_db()
+	cur = conn.cursor()
+
+	project = cur.execute(
+			"SELECT * FROM projects WHERE title = ?",
+			(projectData.title,)
+		).fetchone()
+
+	if project != None:
+		return {"message":"project already exists"}
+
+	cur.execute(
+		"INSERT INTO projects (title, description, creator_id, created_at) VALUES (?, ?, ?, ?)",
+		( projectData.title, projectData.description, projectData.creator_id, projectData.created_at, )
+	)
+
+	conn.commit() 
+	conn.close()
+
+	return {"message":"Created new project successfully!"}
+
+
+@router.get("/get/all")
+async def fetch_user_projects(access_token: str | None = Cookie(None)):
+	conn = connect_db()
+	cur = conn.cursor()
+
+	if not access_token:
+		raise HTTPException(status_code=401, detail="Not logged in")
+
+	try: 
+		payload = decode_payload(access_token)
+		userId = payload["uid"]	
+
+		projects = cur.execute(
+				"SELECT * FROM projects WHERE creator_id = ?", (userId,)
+		).fetchall()
+
+		return {"message":projects}
+	except jwt.ExpiredSignatureError:
+		raise HTTPException(401, "Session expired, please log in again")
+
+	except jwt.InvalidTokenError:
+		raise HTTPException(401, "Invalid token")
+
+@router.post("/get/one")
+async def fetch_one_project(project: FetchProjectRequest, access_token: str | None = Cookie(None)):
+	conn = connect_db()
+	cur = conn.cursor()
+
+	if not access_token:
+		raise HTTPException(status_code=401, detail="Not logged in")
+
+	try:
+		payload = decode_payload(access_token)
+		userId = payload["uid"]
+		if project.project_id != None:
+			project_id = project.project_id
+		project = cur.execute("""
+			SELECT * FROM projects WHERE id = ? and creator_id = ?; 
+		""", (project.project_id, userId)).fetchone()
+		
+		if project == "None":
+			return {"message":"No access"}
+		else:
+			return {"message":project}
+
+	except jwt.ExpiredSignatureError:
+		raise HTTPException(401, "Session expired, please log in again")
+
+	except jwt.InvalidTokenError:
+		raise HTTPException(401, "Invalid token")
